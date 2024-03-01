@@ -1,0 +1,14 @@
+E:\c# projects\Api Project\Model_Layer\bin\Debug\net8.0\Model_Layer.deps.json
+E:\c# projects\Api Project\Model_Layer\bin\Debug\net8.0\Model_Layer.runtimeconfig.json
+E:\c# projects\Api Project\Model_Layer\bin\Debug\net8.0\Model_Layer.dll
+E:\c# projects\Api Project\Model_Layer\bin\Debug\net8.0\Model_Layer.pdb
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.csproj.AssemblyReference.cache
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.GeneratedMSBuildEditorConfig.editorconfig
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.AssemblyInfoInputs.cache
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.AssemblyInfo.cs
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.csproj.CoreCompileInputs.cache
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.dll
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\refint\Model_Layer.dll
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.pdb
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\Model_Layer.genruntimeconfig.cache
+E:\c# projects\Api Project\Model_Layer\obj\Debug\net8.0\ref\Model_Layer.dll
