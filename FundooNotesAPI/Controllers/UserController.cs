@@ -2,6 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Model_Layer.Models;
 using Bussiness_Layer.InterfaceBL;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using Repository_Layer.ContextClass;
+using Microsoft.Identity.Client;
+using Repository_Layer.Entity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Security.Claims;
 
 namespace FundooNotesAPI.Controllers
 {
@@ -15,6 +23,13 @@ namespace FundooNotesAPI.Controllers
         {
             this.userBL = userBL;
         }
+
+
+        
+
+     
+
+
 
         [HttpPost]
 
@@ -30,6 +45,31 @@ namespace FundooNotesAPI.Controllers
                 return BadRequest(new { Successs = false, Message = "Something Went wrong,Please try again! " });
             }
         }
+
+        [HttpPost]
+       [Route("Login")]
+
+        
+        public IActionResult Login( LoginModel loginModel)
+        {
+            var Result = userBL.Login(loginModel);
+
+            if (Result != null)
+            {
+                return Ok(new { Success = true, Message = "User Login Successfully", Data = Result });
+            }
+            else
+            {
+                return BadRequest(new { Successs = false, Message = "Something Went wrong,Please try again! " });
+            }
+
+
+        }
+      
+
+       
+
+      
 
     }
 }

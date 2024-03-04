@@ -1,22 +1,30 @@
-﻿using Model_Layer.Models;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Model_Layer.Models;
 using Repository_Layer.ContextClass;
 using Repository_Layer.Entity;
+using Repository_Layer.Hashing;
+using Repository_Layer.JwtToken;
 using Repository_Layer.User_Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.AccessControl;
+using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository_Layer.User_Service
 {
     public class UserRL : IUserRL
     {
         private readonly UserContext _contextClass;
+        private readonly IConfiguration _config;
+        private readonly Hash_password _hash_Password;
 
-        public UserRL(UserContext contextClass)
+        public UserRL(UserContext contextClass, IConfiguration config, Hash_password hash_Password)
+
         {
+            _config = config;
             _contextClass = contextClass;
+            _hash_Password = hash_Password;
         }
 
         public UserEntity AddUserDetail(UserModel userModel)
@@ -25,14 +33,38 @@ namespace Repository_Layer.User_Service
             user.First_name = userModel.First_name;
             user.Last_name = userModel.Last_name;
             user.Email = userModel.Email;
-            user.Password = userModel.Password;
+            user.Password = _hash_Password.HashPassword(userModel.Password);
 
             _contextClass.Users.Add(user);
             _contextClass.SaveChanges();
 
-
             return user;
         }
+
+        public string Login(LoginModel login)
+        {
+            UserEntity valid = null;
+          
+
+            valid = _contextClass.Users.FirstOrDefault(e => e.Email == login.Email );
+            bool pass = _hash_Password.VerifyPassword(login.Password, valid.Password);  //Check this(error if entered wrong email or password
+
+            Jwt_Token token = new Jwt_Token(_config);
+            if (valid != null)
+            {
+                return token.GenerateToken(valid);
+            }
+            return  null;
+
+        }
+
+       
+
+
+
+
+
+
 
     }
 }

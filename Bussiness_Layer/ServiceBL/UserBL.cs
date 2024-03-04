@@ -24,5 +24,10 @@ namespace Bussiness_Layer.ServiceBL
             return userRL.AddUserDetail(userModel);
         }
 
+        public string Login(LoginModel login)
+        {
+            return userRL.Login(login);
+        }
+
     }
 }

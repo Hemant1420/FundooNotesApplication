@@ -11,5 +11,7 @@ namespace Bussiness_Layer.InterfaceBL
     public interface IUserBL
     {
         public UserEntity AddUserDetail(UserModel userModel);
+
+        public string Login(LoginModel login);
     }
 }
