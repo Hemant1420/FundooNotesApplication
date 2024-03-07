@@ -38,6 +38,12 @@ namespace Bussiness_Layer.ServiceBL
             return _notesRL.EditNote(notesModel,_userId, _noteId);
         }
 
+        public bool DeleteNote(int _userId, int _noteId)
+        {
+            return _notesRL.DeleteNote(_userId, _noteId);
+        }
+
+
 
 
     }

@@ -22,7 +22,7 @@ namespace FundooNotesAPI.Controllers
 
            
        
-        [HttpPost("AddNote")]
+        [HttpPost]
        
         [Authorize]
 
@@ -53,7 +53,7 @@ namespace FundooNotesAPI.Controllers
 
         }
 
-        [HttpGet("ViewNote")]
+        [HttpGet]
         [Authorize]
         public ResponseModel<List<UserNotes>> ViewNote()
         {
@@ -102,6 +102,32 @@ namespace FundooNotesAPI.Controllers
                 response.Success = false;
                 response.Message = "Error while editing the note,Please try again";
                 
+            }
+            return response;
+        }
+
+
+        [HttpDelete]
+        [Authorize]
+        public ResponseModel<bool> DeleteNode(int nodeId)
+        {
+            var response = new ResponseModel<bool>();
+
+            string UserId = User.FindFirstValue("UserId");  
+            int _userId = Convert.ToInt32(UserId);
+
+            bool result = notesBL.DeleteNote(_userId, nodeId);
+
+            if (result)
+            {
+                response.Success = true;
+                response.Message = "Note Deleted successfully";
+                
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "There was a Error while deleteing the node, Please try again";
             }
             return response;
         }

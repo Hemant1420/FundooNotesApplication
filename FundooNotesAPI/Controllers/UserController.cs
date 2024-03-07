@@ -25,7 +25,7 @@ namespace FundooNotesAPI.Controllers
         }
 
 
-         [HttpPost("Register")]
+         [HttpPost]
         public ResponseModel<UserModel> AddUser(UserModel userModel)
         {
             var response = new ResponseModel<UserModel>();

@@ -68,6 +68,20 @@ namespace Repository_Layer.ServiceRL
             return userNotes; 
                 
         }
+
+        public bool DeleteNote(int _userId, int _noteId)
+        {
+            UserNotes userNotes = _contextClass.Notes.Where(e => e.UserId == _userId && e.NoteId == _noteId ).FirstOrDefault();
+
+            if(userNotes != null)
+            {
+                _contextClass.Notes.Remove(userNotes);
+                _contextClass.SaveChanges();
+                return true;
+            }
+            return false;
+            
+        }
         
 
 
