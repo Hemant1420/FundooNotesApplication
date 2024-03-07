@@ -47,17 +47,21 @@ namespace Repository_Layer.User_Service
           
 
             valid = _contextClass.Users.FirstOrDefault(e => e.Email == login.Email );
-            bool pass = _hash_Password.VerifyPassword(login.Password, valid.Password);  //Check this(error if entered wrong email or password
 
             Jwt_Token token = new Jwt_Token(_config);
             if (valid != null)
             {
-                return token.GenerateToken(valid);
+                bool pass = _hash_Password.VerifyPassword(login.Password, valid.Password);  //Check this(error if entered wrong email or password
+                if (pass)
+                {
+                    return token.GenerateToken(valid);
+                }
             }
             return  null;
 
         }
 
+      
        
 
 

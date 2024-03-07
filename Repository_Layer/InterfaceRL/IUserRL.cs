@@ -14,6 +14,7 @@ namespace Repository_Layer.User_Interface
         public UserEntity AddUserDetail(UserModel userModel);
 
         public string Login(LoginModel login);
+
     }
 
 }

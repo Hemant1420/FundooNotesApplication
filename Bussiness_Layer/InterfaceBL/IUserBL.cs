@@ -13,5 +13,7 @@ namespace Bussiness_Layer.InterfaceBL
         public UserEntity AddUserDetail(UserModel userModel);
 
         public string Login(LoginModel login);
+
+       
     }
 }

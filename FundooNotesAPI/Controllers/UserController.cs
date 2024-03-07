@@ -13,7 +13,7 @@ using System.Security.Claims;
 
 namespace FundooNotesAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/User")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -25,43 +25,48 @@ namespace FundooNotesAPI.Controllers
         }
 
 
-        
-
-     
-
-
-
-        [HttpPost]
-
-        public IActionResult AddUser(UserModel userModel)
+         [HttpPost("Register")]
+        public ResponseModel<UserModel> AddUser(UserModel userModel)
         {
+            var response = new ResponseModel<UserModel>();
+
             var Result = userBL.AddUserDetail(userModel);
+
             if (Result != null)
             {
-                return Ok(new { Success = true, Message = "User Registered Successfully", Data = Result });
+                response.IsSuccess = true;
+                response.Message = "User Registered successfully";
+                response.Data = userModel;
             }
             else
             {
-                return BadRequest(new { Successs = false, Message = "Something Went wrong,Please try again! " });
+                response.IsSuccess = false;
+                response.Message = "User Registeration failed!, Please try again";
+                
             }
+            return response;
         }
 
-        [HttpPost]
-       [Route("Login")]
-
-        
-        public IActionResult Login( LoginModel loginModel)
+        [HttpPost("Login")]
+       
+        public ResponseModel<LoginModel> Login( LoginModel loginModel)
         {
+            var response = new ResponseModel<LoginModel>();
+
             var Result = userBL.Login(loginModel);
 
             if (Result != null)
             {
-                return Ok(new { Success = true, Message = "User Login Successfully", Data = Result });
+                response.IsSuccess = true;
+                response.Message = "User Login successful";
+                response.Data = loginModel;
             }
             else
             {
-                return BadRequest(new { Successs = false, Message = "Something Went wrong,Please try again! " });
+                response.IsSuccess = true;
+                response.Message = "User Login failed, Please enter the valid credentials";
             }
+            return response;
 
 
         }
