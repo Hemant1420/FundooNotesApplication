@@ -6,6 +6,7 @@ using Repository_Layer.ServiceRL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +31,11 @@ namespace Bussiness_Layer.ServiceBL
         public List<UserNotes> ViewNote(int _userId)
         {
             return _notesRL.ViewNote(_userId);
+        }
+
+        public UserNotes EditNote(NotesModel notesModel, int _userId, int _noteId)
+        {
+            return _notesRL.EditNote(notesModel,_userId, _noteId);
         }
 
 

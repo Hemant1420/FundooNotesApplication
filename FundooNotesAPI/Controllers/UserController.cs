@@ -34,13 +34,13 @@ namespace FundooNotesAPI.Controllers
 
             if (Result != null)
             {
-                response.IsSuccess = true;
+                response.Success = true;
                 response.Message = "User Registered successfully";
                 response.Data = userModel;
             }
             else
             {
-                response.IsSuccess = false;
+                response.Success = false;
                 response.Message = "User Registeration failed!, Please try again";
                 
             }
@@ -57,13 +57,13 @@ namespace FundooNotesAPI.Controllers
 
             if (Result != null)
             {
-                response.IsSuccess = true;
+                response.Success = true;
                 response.Message = "User Login successful";
                 response.Data = Result;
             }
             else
             {
-                response.IsSuccess = true;
+                response.Success = true;
                 response.Message = "User Login failed, Please enter the valid credentials";
             }
             return response;

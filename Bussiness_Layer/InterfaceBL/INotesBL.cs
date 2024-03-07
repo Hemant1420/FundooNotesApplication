@@ -14,6 +14,9 @@ namespace Bussiness_Layer.InterfaceBL
 
         public List<UserNotes> ViewNote(int _userId);
 
+        public UserNotes EditNote(NotesModel notesModel, int _userId, int _noteId);
+
+
 
 
 
