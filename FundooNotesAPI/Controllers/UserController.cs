@@ -49,9 +49,9 @@ namespace FundooNotesAPI.Controllers
 
         [HttpPost("Login")]
        
-        public ResponseModel<LoginModel> Login( LoginModel loginModel)
+        public ResponseModel<string> Login( LoginModel loginModel)
         {
-            var response = new ResponseModel<LoginModel>();
+            var response = new ResponseModel<string>();
 
             var Result = userBL.Login(loginModel);
 
@@ -59,7 +59,7 @@ namespace FundooNotesAPI.Controllers
             {
                 response.IsSuccess = true;
                 response.Message = "User Login successful";
-                response.Data = loginModel;
+                response.Data = Result;
             }
             else
             {

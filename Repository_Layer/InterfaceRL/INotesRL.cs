@@ -12,7 +12,8 @@ namespace Repository_Layer.InterfaceRL
     {
         public UserNotes AddNote(NotesModel notesModel, int _userId);
 
-     
+        public List<UserNotes> ViewNote(int _userId);
+
 
 
 

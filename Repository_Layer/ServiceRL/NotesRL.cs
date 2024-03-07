@@ -37,7 +37,20 @@ namespace Repository_Layer.ServiceRL
             return user;
 
         }
+
+        public List<UserNotes> ViewNote(int _userId)
+        {
+
+            var Result = _contextClass.Notes.Where(e => e.UserId == _userId).ToList();
+
+            if(Result != null)
+            {
+                return Result;
+            }
+            return Result;
+        }
         
+
 
         
       

@@ -52,8 +52,36 @@ namespace FundooNotesAPI.Controllers
            
 
         }
-       
 
-       
+        [HttpGet("ViewNote")]
+        [Authorize]
+        public ResponseModel<List<UserNotes>> ViewNote()
+        {
+            var response = new ResponseModel<List<UserNotes>>();
+
+            string userId = User.FindFirstValue("UserId");
+            int _userId = Convert.ToInt32(userId);
+            var Result = notesBL.ViewNote( _userId);
+
+            if(Result != null)
+            {
+                response.IsSuccess = true;
+                response.Message = "Note Retrieved successfully";
+                response.Data = Result;
+
+
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = "Error While retrieveing the note!";
+            }
+
+                return response;
+        }
+
+
+
+
     }
 }

@@ -27,7 +27,11 @@ namespace Bussiness_Layer.ServiceBL
             return _notesRL.AddNote(notesModel,_userId);
         }
 
-      
+        public List<UserNotes> ViewNote(int _userId)
+        {
+            return _notesRL.ViewNote(_userId);
+        }
+
 
 
     }

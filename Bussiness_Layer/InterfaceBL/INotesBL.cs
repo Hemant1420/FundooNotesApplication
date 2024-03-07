@@ -12,7 +12,8 @@ namespace Bussiness_Layer.InterfaceBL
     {
         public UserNotes AddNote(NotesModel notesModel, int _userId);
 
-      
+        public List<UserNotes> ViewNote(int _userId);
+
 
 
 
