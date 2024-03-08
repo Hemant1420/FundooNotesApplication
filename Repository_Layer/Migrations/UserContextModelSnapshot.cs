@@ -21,6 +21,33 @@ namespace Repository_Layer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Repository_Layer.Entity.CollaboratorEntity", b =>
+                {
+                    b.Property<int>("Collaborator_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Collaborator_id"));
+
+                    b.Property<string>("Collaborator_Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Note_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Collaborator_id");
+
+                    b.HasIndex("Note_Id");
+
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("Collaborator");
+                });
+
             modelBuilder.Entity("Repository_Layer.Entity.UserEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -84,6 +111,25 @@ namespace Repository_Layer.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("Repository_Layer.Entity.CollaboratorEntity", b =>
+                {
+                    b.HasOne("Repository_Layer.Entity.UserNotes", "Notes")
+                        .WithMany()
+                        .HasForeignKey("Note_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Repository_Layer.Entity.UserEntity", "Users")
+                        .WithMany()
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notes");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Repository_Layer.Entity.UserNotes", b =>

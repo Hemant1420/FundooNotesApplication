@@ -25,6 +25,7 @@ namespace Repository_Layer.ServiceRL
 
         public UserNotes AddNote(NotesModel notesModel,int _userId )
         {
+            
             UserNotes user = new UserNotes();
             user.Title = notesModel.Title;
             user.Description = notesModel.Description;

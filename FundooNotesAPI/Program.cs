@@ -58,6 +58,9 @@ builder.Services.AddTransient<IUserBL, UserBL>();
 builder.Services.AddTransient<INotesRL, NotesRL>();
 builder.Services.AddTransient<INotesBL, NotesBL>();
 builder.Services.AddTransient<Hash_password>();
+builder.Services.AddTransient<ICollaboratorRL, CollaboratorRL>();
+builder.Services.AddTransient<ICollaboratorBL, CollaboratorBL>();
+
 
 //Add identity and Jwt Authentication
 //Identity
