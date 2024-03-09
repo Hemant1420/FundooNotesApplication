@@ -48,5 +48,32 @@ namespace FundooNotesAPI.Controllers
             
 
         }
+        [HttpGet]
+        [Authorize]
+        public ResponseModel<List<string>> ViewCollaborator ( int _noteId) 
+        {
+
+            string userId = User.FindFirstValue("UserId");
+            int _userId = Convert.ToInt32(userId);
+
+            var result = _collaboratorBL.ViewCollaborator(_userId, _noteId);
+            var response = new ResponseModel<List<string>>();
+
+            if( result != null )
+            {
+                response.Success = true;
+                response.Message = "Collaborater retrieved";
+                response.Data = result;
+            }
+            else
+            {
+                response.Success= false;
+                response.Message = "Error while fetching records";
+            }
+            return response;
+
+        }
+
+
     }
 }

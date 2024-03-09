@@ -28,8 +28,14 @@ namespace Bussiness_Layer.ServiceBL
                 return _collaboratorRL.AddCollaborator(collaboratorModel, noteId, _userId);
            
         }
-    }
-    
 
-    
+        public List<string> ViewCollaborator(int userId, int noteId)
+        {
+            return _collaboratorRL.ViewCollaborator(userId, noteId);
+        }
+
+    }
+
+
+
 }

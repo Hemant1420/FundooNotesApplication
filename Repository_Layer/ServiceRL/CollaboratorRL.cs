@@ -41,5 +41,18 @@ namespace Repository_Layer.ServiceRL
 
         }
 
+        public List<string> ViewCollaborator(int userId,int noteId)
+        {
+            var notes = _userContext.Notes.FirstOrDefault(e => e.UserId == userId && e.NoteId == noteId);
+
+            if(notes != null)
+            {
+                var collab = _userContext.Collaborator.Where(e => e.User_Id == userId && e.Note_Id == noteId).Select(e => e.Collaborator_Email).ToList();
+
+                return collab;
+            }
+            return null;
+        }
+
     }
 }

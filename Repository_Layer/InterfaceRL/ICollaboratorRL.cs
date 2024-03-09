@@ -12,5 +12,8 @@ namespace Repository_Layer.InterfaceRL
     {
         public CollaboratorEntity AddCollaborator(CollaboratorModel collaboratorModel, int noteId, int _userId);
 
+        public List<string> ViewCollaborator(int userId, int noteId);
+
+
     }
 }
