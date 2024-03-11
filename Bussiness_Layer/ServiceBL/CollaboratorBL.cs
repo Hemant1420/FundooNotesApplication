@@ -34,6 +34,11 @@ namespace Bussiness_Layer.ServiceBL
             return _collaboratorRL.ViewCollaborator(userId, noteId);
         }
 
+        public bool RemoveCollaborators(string email,int userId, int noteId)
+        {
+            return _collaboratorRL.RemoveCollaborators(email,userId, noteId);
+        }
+
     }
 
 

@@ -14,6 +14,9 @@ namespace Repository_Layer.InterfaceRL
 
         public List<string> ViewCollaborator(int userId, int noteId);
 
+        public bool RemoveCollaborators(string email,int userId, int noteId);
+
+
 
     }
 }

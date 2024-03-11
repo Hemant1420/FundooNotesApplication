@@ -18,6 +18,8 @@ namespace Bussiness_Layer.InterfaceBL
 
         public bool DeleteNote(int _userId, int _noteId);
 
+      
+
 
     }
 }

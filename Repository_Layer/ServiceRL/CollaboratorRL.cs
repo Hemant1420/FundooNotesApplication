@@ -2,6 +2,7 @@
 using Repository_Layer.ContextClass;
 using Repository_Layer.Entity;
 using Repository_Layer.InterfaceRL;
+using Repository_Layer.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,24 @@ namespace Repository_Layer.ServiceRL
                 return collab;
             }
             return null;
+        }
+
+        public bool RemoveCollaborators(string email,int userId, int noteId)
+        {
+            var check = _userContext.Notes.FirstOrDefault(e => e.UserId == userId && e.NoteId == noteId);   
+
+            if (check != null)
+            {
+                CollaboratorEntity collaboratorEntity = _userContext.Collaborator.FirstOrDefault(e => e.User_Id == userId && e.Note_Id == noteId && e.Collaborator_Email == email);
+
+                _userContext.Collaborator.Remove(collaboratorEntity);   
+                _userContext.SaveChanges();
+                return true;
+
+                
+            }
+            return false;
+
         }
 
     }

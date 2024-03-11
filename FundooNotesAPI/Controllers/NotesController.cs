@@ -80,7 +80,7 @@ namespace FundooNotesAPI.Controllers
                 return response;
         }
 
-        [HttpPatch]
+        [HttpPut]
         [Authorize]
         public ResponseModel<UserNotes> EditNote(NotesModel notesModel, int _noteId)
         {
@@ -122,16 +122,17 @@ namespace FundooNotesAPI.Controllers
             {
                 response.Success = true;
                 response.Message = "Note Deleted successfully";
-                
+                response.Data = true;
             }
             else
             {
                 response.Success = false;
-                response.Message = "There was a Error while deleteing the node, Please try again";
+                response.Message = "There was a Error while deleting the node, Please try again";
             }
             return response;
         }
 
+        
 
 
 

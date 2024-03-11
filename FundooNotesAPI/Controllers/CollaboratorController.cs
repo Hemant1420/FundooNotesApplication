@@ -67,12 +67,37 @@ namespace FundooNotesAPI.Controllers
             }
             else
             {
-                response.Success= false;
+                response.Success = false;
                 response.Message = "Error while fetching records";
             }
             return response;
 
         }
+
+        [HttpDelete]
+        [Authorize]
+        public ResponseModel<bool> RemoveCollaborator(string email,int _noteId)
+        {
+            string UserId = User.FindFirstValue("UserId");
+            int _userId = Convert.ToInt32(UserId);  
+
+            var result = _collaboratorBL.RemoveCollaborators(email,_userId, _noteId); 
+
+            var response = new ResponseModel<bool>();
+
+            if (result)
+            {
+                response.Success = true;
+                response.Message = "Collaborator removed successfully";
+                
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "No Collaborators added to Remove";
+            }
+            return response;
+        } 
 
 
     }

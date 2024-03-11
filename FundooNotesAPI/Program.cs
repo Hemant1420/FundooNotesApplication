@@ -51,7 +51,12 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-builder.Services.AddDbContext<UserContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("FundooNotesDB")));
+builder.Services.AddDbContext<UserContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("FundooNotesDB"), sqlServerOptionsAction: sqlOptions =>
+{
+    sqlOptions.EnableRetryOnFailure();
+}
+    )
+);
 
 builder.Services.AddTransient<IUserRL, UserRL>();
 builder.Services.AddTransient<IUserBL, UserBL>();

@@ -63,7 +63,7 @@ namespace FundooNotesAPI.Controllers
             }
             else
             {
-                response.Success = true;
+                response.Success = false;
                 response.Message = "User Login failed, Please enter the valid credentials";
             }
             return response;
