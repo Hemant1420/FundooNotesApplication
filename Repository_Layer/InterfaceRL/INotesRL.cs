@@ -20,6 +20,9 @@ namespace Repository_Layer.InterfaceRL
 
         public bool Arch_Unarchieved(int userId, int noteId);
 
+        public bool Trash_UnTrash(int userId, int noteId);
+
+
 
 
 

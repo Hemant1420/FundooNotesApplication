@@ -48,6 +48,10 @@ namespace Bussiness_Layer.ServiceBL
             return _notesRL.Arch_Unarchieved(userId, noteId);
         }
 
+        public bool Trash_UnTrash(int userId, int noteId)
+        {
+            return _notesRL.Trash_UnTrash(userId, noteId);  
+        }
 
 
 

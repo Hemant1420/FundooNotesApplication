@@ -135,7 +135,7 @@ namespace FundooNotesAPI.Controllers
 
         [HttpPatch("Arch/UnArchieved")]
         [Authorize]
-        public ResponseModel<bool> archieved_Unarchieved(int noteId)
+        public ResponseModel<bool> Archieved_Unarchieved(int noteId)
         {
             var response = new ResponseModel<bool>();
 
@@ -154,6 +154,32 @@ namespace FundooNotesAPI.Controllers
             {
                 response.Success = false;
                 response.Message = "Error while execution, Please try again";
+            }
+            return response;
+        }
+
+        [HttpPatch("Trash/UnTrash")]
+        [Authorize]
+
+        public ResponseModel<bool> Trash_UnTrash(int noteId)
+        {
+            var response = new ResponseModel<bool>();
+
+            string UserId = User.FindFirstValue("UserId");
+            int _userId = Convert.ToInt32(UserId);  
+
+            bool result = notesBL.Trash_UnTrash(_userId, noteId);   
+
+            if(result)
+            {
+                response.Success = true;
+                response.Message = "Operation Performed Successfully";
+                response.Data = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "Unexpected Error Occured, Please try again ";
             }
             return response;
         }

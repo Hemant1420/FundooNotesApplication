@@ -103,6 +103,22 @@ namespace Repository_Layer.ServiceRL
 
         }
 
+        public bool Trash_UnTrash(int userId, int noteId)
+        {
+            var check = _contextClass.Notes.FirstOrDefault(e => e.UserId == userId && e.NoteId == noteId);
+                
+            if(check.IsDeleted == true)
+            {
+                check.IsDeleted = false;
+            }
+            else
+            {
+                check.IsDeleted = true;
+            }
+            _contextClass.SaveChanges();
+            return true;
+        }
+
 
 
 
