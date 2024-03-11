@@ -18,7 +18,11 @@ namespace Repository_Layer.InterfaceRL
 
         public bool DeleteNote(int _userId, int _noteId);
 
-      
+        public bool Arch_Unarchieved(int userId, int noteId);
+
+
+
+
 
 
 

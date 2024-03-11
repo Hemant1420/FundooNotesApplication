@@ -18,7 +18,11 @@ namespace Bussiness_Layer.InterfaceBL
 
         public bool DeleteNote(int _userId, int _noteId);
 
-      
+        public bool Arch_Unarchieved(int userId, int noteId);
+
+
+
+
 
 
     }

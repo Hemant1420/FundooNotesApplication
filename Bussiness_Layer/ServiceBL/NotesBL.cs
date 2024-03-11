@@ -43,7 +43,13 @@ namespace Bussiness_Layer.ServiceBL
             return _notesRL.DeleteNote(_userId, _noteId);
         }
 
-        
+        public bool Arch_Unarchieved(int userId, int noteId)
+        {
+            return _notesRL.Arch_Unarchieved(userId, noteId);
+        }
+
+
+
 
 
 

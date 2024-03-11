@@ -84,7 +84,26 @@ namespace Repository_Layer.ServiceRL
             
         }
 
-       
+        public bool Arch_Unarchieved(int userId, int noteId)
+        {
+            var check = _contextClass.Notes.FirstOrDefault(e => e.UserId == userId && e.NoteId == noteId);
+
+            if (check.IsArchived == true)
+            {
+                check.IsArchived = false;
+
+            }
+            else
+            {
+                check.IsArchived = true;
+            }
+            _contextClass.SaveChanges();
+            return true;
+
+
+        }
+
+
 
 
 

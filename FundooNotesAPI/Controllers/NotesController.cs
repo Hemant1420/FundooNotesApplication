@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Model_Layer.Models;
 using Repository_Layer.Entity;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace FundooNotesAPI.Controllers
@@ -131,6 +132,32 @@ namespace FundooNotesAPI.Controllers
             }
             return response;
         }
+
+        [HttpPatch("Arch/UnArchieved")]
+        [Authorize]
+        public ResponseModel<bool> archieved_Unarchieved(int noteId)
+        {
+            var response = new ResponseModel<bool>();
+
+            string UserId = User.FindFirstValue("UserId");
+            int _userId = Convert.ToInt32(UserId);
+            
+            bool result = notesBL.Arch_Unarchieved(_userId, noteId);
+
+            if (result)
+            {
+                response.Success = true;
+                response.Message = "Operation Performed Successfully";
+                response.Data = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "Error while execution, Please try again";
+            }
+            return response;
+        }
+
 
         
 
