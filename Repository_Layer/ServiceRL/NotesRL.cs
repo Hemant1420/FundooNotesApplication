@@ -52,15 +52,24 @@ namespace Repository_Layer.ServiceRL
             return Result;
         }
 
+
+        public string Check(string newValue,string oldValue)
+        {
+            if(newValue == "")
+            {
+                return oldValue;
+            }
+            return newValue;
+        }
         public UserNotes EditNote(NotesModel notesModel,int _userId,int _noteId)
         {
            UserNotes userNotes = _contextClass.Notes.Where(e => e.UserId == _userId &&  e.NoteId == _noteId).FirstOrDefault();   
             
             if(userNotes != null) 
             {
-                userNotes.Title = notesModel.Title; 
-                userNotes.Description = notesModel.Description;
-                userNotes.Colour = notesModel.Colour;
+                userNotes.Title = Check(notesModel.Title,userNotes.Title); 
+                userNotes.Description = Check(notesModel.Description, userNotes.Description);
+                userNotes.Colour = Check(notesModel.Colour, userNotes.Colour);
                 userNotes.UserId = _userId;
                 userNotes.NoteId = _noteId;
 
@@ -116,7 +125,7 @@ namespace Repository_Layer.ServiceRL
                 check.IsDeleted = true;
             }
             _contextClass.SaveChanges();
-            return true;
+            return true; 
         }
 
 

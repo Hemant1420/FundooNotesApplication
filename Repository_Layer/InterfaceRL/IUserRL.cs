@@ -13,7 +13,13 @@ namespace Repository_Layer.User_Interface
 
         public UserEntity AddUserDetail(UserModel userModel);
 
-        public string Login(LoginModel login);
+        public string Login(LoginModel loginModel);
+
+        public Task<string> Forget_Password(string email);
+
+        public bool PasswordReset(string newPassword, int userId);
+
+
 
     }
 

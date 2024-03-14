@@ -24,12 +24,24 @@ namespace Bussiness_Layer.ServiceBL
             return userRL.AddUserDetail(userModel);
         }
 
-        public string Login(LoginModel login)
+        public string Login(LoginModel loginModel)
         {
-            return userRL.Login(login);
+            return userRL.Login(loginModel);
         }
 
-       
+        public  Task<string> Forget_Password(string email)
+        {
+            return userRL.Forget_Password(email);
+        }
+
+
+        public bool PasswordReset(string newPassword, int userId)
+        {
+            return userRL.PasswordReset(newPassword, userId);   
+        }
+
+
+
 
 
     }

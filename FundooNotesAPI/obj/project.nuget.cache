@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "uaLGShZtVrLDIKh46LYWDOdwUUijEqpyOCZaXoqKZTo1BxwZEZytjTyzx62pl/3mhXr1E7y0nroJsu68mGR1YA==",
+  "dgSpecHash": "O3i1te15L+8T21RlrfG6De9+C+g73ZTyByvDgASJg36jhdir5LZj0/GBPPlJaYwOVmBq2Q/hQH2yfaP63EBjzg==",
   "success": true,
   "projectFilePath": "E:\\c# projects\\Api Project\\FundooNotesAPI\\FundooNotesAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hemant\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\hemant\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\hemant\\.nuget\\packages\\dotenv.net\\3.1.3\\dotenv.net.3.1.3.nupkg.sha512",
     "C:\\Users\\hemant\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\hemant\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\hemant\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

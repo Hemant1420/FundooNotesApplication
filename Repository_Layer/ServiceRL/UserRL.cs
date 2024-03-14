@@ -1,10 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Model_Layer.Models;
 using Repository_Layer.ContextClass;
 using Repository_Layer.Entity;
 using Repository_Layer.Hashing;
 using Repository_Layer.JwtToken;
+using Repository_Layer.ServiceRL;
 using Repository_Layer.User_Interface;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.AccessControl;
@@ -41,17 +44,17 @@ namespace Repository_Layer.User_Service
             return user;
         }
 
-        public string Login(LoginModel login)
+        public string Login(LoginModel loginModel)
         {
-            UserEntity valid = null;
+            //UserEntity valid = null;
           
 
-            valid = _contextClass.Users.FirstOrDefault(e => e.Email == login.Email );
+           var valid = _contextClass.Users.FirstOrDefault(e => e.Email == loginModel.Email );
 
             Jwt_Token token = new Jwt_Token(_config);
             if (valid != null)
             {
-                bool pass = _hash_Password.VerifyPassword(login.Password, valid.Password);  //Check this(error if entered wrong email or password
+                bool pass = _hash_Password.VerifyPassword(loginModel.Password, valid.Password);  //Check this(error if entered wrong email or password
                 if (pass)
                 {
                     return token.GenerateToken(valid);
@@ -60,6 +63,51 @@ namespace Repository_Layer.User_Service
             return  null;
 
         }
+
+        public async Task<string?> Forget_Password(string email)
+        {
+            var user = _contextClass.Users.FirstOrDefault(e => e.Email == email);
+            Jwt_Token token = new Jwt_Token(_config);
+
+
+            if (user != null)
+            {
+                string _token = token.GenerateTokenReset(user.Email,user.Id);
+
+              
+                // Generate password reset link
+                var callbackUrl = $"https://localhost:7258/api/User/ResetPassword?token={_token}";
+
+                // Send password reset email
+                EmailService _emailService = new EmailService();
+                await _emailService.SendEmailAsync(email,"Reset Password", callbackUrl);
+                return "Ok";
+            }
+            else
+            {
+                return null;
+
+            }
+           
+            
+        }
+
+        public bool PasswordReset(string newPassword, int userId)
+        {
+            var User = _contextClass.Users.FirstOrDefault(e => e.Id == userId);
+
+            if(User != null)
+            {
+                string newPass = _hash_Password.HashPassword(newPassword);
+                User.Password = newPass;    
+                _contextClass.SaveChanges();
+                return true;
+            }
+            return false;
+
+
+        }
+
 
       
        

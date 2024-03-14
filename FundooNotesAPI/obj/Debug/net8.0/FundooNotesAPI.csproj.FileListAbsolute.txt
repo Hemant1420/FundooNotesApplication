@@ -149,3 +149,5 @@ E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.Extensions.
 E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
 E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\secrets.json
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\dotenv.net.dll
