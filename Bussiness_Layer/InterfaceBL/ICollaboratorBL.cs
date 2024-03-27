@@ -10,7 +10,7 @@ namespace Bussiness_Layer.InterfaceBL
 {
     public interface ICollaboratorBL
     {
-        public CollaboratorEntity AddCollaborator(CollaboratorModel collaboratorModel, int noteId, int _userId);
+        public string AddCollaborator(CollaboratorModel collaboratorModel, int noteId, int _userId);
 
         public List<string> ViewCollaborator(int userId, int noteId);
 

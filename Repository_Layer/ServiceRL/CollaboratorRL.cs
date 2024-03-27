@@ -20,7 +20,7 @@ namespace Repository_Layer.ServiceRL
             _userContext = userContext;
         }
 
-        public CollaboratorEntity AddCollaborator(CollaboratorModel collaboratorModel, int noteId, int _userId)
+        public string AddCollaborator(CollaboratorModel collaboratorModel, int noteId, int _userId)
         {
 
             var Check = _userContext.Notes.FirstOrDefault(e => e.NoteId ==  noteId && e.UserId == _userId);
@@ -34,7 +34,7 @@ namespace Repository_Layer.ServiceRL
 
                 _userContext.Collaborator.Add(collaboratorEntity);
                 _userContext.SaveChanges();
-                return collaboratorEntity;
+                return collaboratorEntity.Collaborator_Email;
             }
 
             return null;
@@ -62,10 +62,12 @@ namespace Repository_Layer.ServiceRL
             if (check != null)
             {
                 CollaboratorEntity collaboratorEntity = _userContext.Collaborator.FirstOrDefault(e => e.User_Id == userId && e.Note_Id == noteId && e.Collaborator_Email == email);
-
-                _userContext.Collaborator.Remove(collaboratorEntity);   
-                _userContext.SaveChanges();
-                return true;
+                if (collaboratorEntity != null)
+                {
+                    _userContext.Collaborator.Remove(collaboratorEntity);
+                    _userContext.SaveChanges();
+                    return true;
+                }
 
                 
             }

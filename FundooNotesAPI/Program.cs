@@ -2,6 +2,7 @@ using Bussiness_Layer.InterfaceBL;
 using Bussiness_Layer.ServiceBL;
 using dotenv.net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -13,10 +14,21 @@ using Repository_Layer.ServiceRL;
 using Repository_Layer.User_Interface;
 using Repository_Layer.User_Service;
 using System.Text;
+using StackExchange.Redis;
+using RabbitMQ.Client.Events;
+using RabbitMQ.Client;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddStackExchangeRedisCache(redisOptions =>
+{
+    string connection = builder.Configuration.GetConnectionString("Redis");
+    redisOptions.Configuration = connection;
+
+});
+
 
 
 
@@ -62,6 +74,8 @@ builder.Services.AddDbContext<UserContext>(options => options.UseSqlServer(build
     )
 );
 
+
+
 builder.Services.AddTransient<IUserRL, UserRL>();
 builder.Services.AddTransient<IUserBL, UserBL>();
 builder.Services.AddTransient<INotesRL, NotesRL>();
@@ -69,6 +83,8 @@ builder.Services.AddTransient<INotesBL, NotesBL>();
 builder.Services.AddTransient<Hash_password>();
 builder.Services.AddTransient<ICollaboratorRL, CollaboratorRL>();
 builder.Services.AddTransient<ICollaboratorBL, CollaboratorBL>();
+builder.Services.AddTransient<IRabbitMQ, RabbitMQProducer>();
+
 
 
 //Add identity and Jwt Authentication
@@ -119,5 +135,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 app.Run();

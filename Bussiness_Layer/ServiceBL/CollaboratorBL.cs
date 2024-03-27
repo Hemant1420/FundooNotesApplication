@@ -22,7 +22,7 @@ namespace Bussiness_Layer.ServiceBL
 
       
 
-        public CollaboratorEntity AddCollaborator(CollaboratorModel collaboratorModel, int noteId, int _userId)
+        public string AddCollaborator(CollaboratorModel collaboratorModel, int noteId, int _userId)
         {
            
                 return _collaboratorRL.AddCollaborator(collaboratorModel, noteId, _userId);

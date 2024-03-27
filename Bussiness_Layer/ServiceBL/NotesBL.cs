@@ -33,6 +33,12 @@ namespace Bussiness_Layer.ServiceBL
             return _notesRL.ViewNote(_userId);
         }
 
+        public UserNotes ViewNotebyId(int _userId, int _noteId)
+        {
+            return _notesRL.ViewNotebyId(_userId, _noteId);
+        }
+
+
         public UserNotes EditNote(NotesModel notesModel, int _userId, int _noteId)
         {
             return _notesRL.EditNote(notesModel,_userId, _noteId);

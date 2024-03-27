@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Model_Layer.Models;
 using Repository_Layer.Entity;
+using Repository_Layer.InterfaceRL;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace FundooNotesAPI.Controllers
 {
@@ -15,10 +18,13 @@ namespace FundooNotesAPI.Controllers
     public class NotesController : ControllerBase
     {
         private readonly INotesBL notesBL;
+        private readonly IDistributedCache _cache;
 
-        public NotesController(INotesBL notesBL)
+        public NotesController(INotesBL notesBL, IDistributedCache cache)
         {
             this.notesBL = notesBL;
+            _cache = cache;
+            
         }
 
            
@@ -29,12 +35,31 @@ namespace FundooNotesAPI.Controllers
 
         public ResponseModel<NotesModel> CreateNote(NotesModel notesModel)
         {
+
             var response = new ResponseModel<NotesModel>();
             string userId = User.FindFirstValue("UserId");
             int _userId = Convert.ToInt32(userId);
-            var Result = notesBL.AddNote(notesModel, _userId);
+            var Result = notesBL.AddNote(notesModel, _userId);                                     //Adding data in database 
 
-            if( Result != null)
+            
+            _cache.SetString(Convert.ToString(Result.NoteId), JsonSerializer.Serialize(Result));   //Adding data in cache memory (noteid as key)
+            
+            var cacheResult = _cache.GetString(Convert.ToString(_userId));                          //Getting the list of notes stored by user in cache(with userId)
+            if (cacheResult == null)
+            {
+                List<UserNotes> noteList = new List<UserNotes> { Result };
+
+                _cache.SetString(Convert.ToString(_userId), JsonSerializer.Serialize(noteList));   //Adding data in cache memory (noteid as key)
+
+            }
+            else
+            {
+                var finalResult = JsonSerializer.Deserialize<List<UserNotes>>(cacheResult);             //Deserializing the list
+                finalResult.Add(Result);                                                                //Adding the latest created note to the list
+                _cache.SetString(Convert.ToString(_userId), JsonSerializer.Serialize(finalResult));     //Again reassigining the list to that particular userId with added note in cache (Userid as key)
+            }
+
+            if ( Result != null)
             {
                  
                 response.Success = true;
@@ -58,27 +83,87 @@ namespace FundooNotesAPI.Controllers
         [Authorize]
         public ResponseModel<List<UserNotes>> ViewNote()
         {
+
             var response = new ResponseModel<List<UserNotes>>();
 
             string userId = User.FindFirstValue("UserId");
             int _userId = Convert.ToInt32(userId);
-            var Result = notesBL.ViewNote( _userId);
 
-            if(Result != null)
+            var cacheResponse = _cache.GetString(Convert.ToString(_userId));            //checking if the data is present in cache
+
+            if (cacheResponse != null)
             {
+                var finalResponse = JsonSerializer.Deserialize<List<UserNotes>>(cacheResponse);         //deserializing the data
+
                 response.Success = true;
                 response.Message = "Note Retrieved successfully";
-                response.Data = Result;
-
-
+                response.Data = finalResponse;
+                return response;
             }
             else
             {
-                response.Success = false;
-                response.Message = "Error While retrieveing the note!";
+
+                var Result = notesBL.ViewNote(_userId);
+
+                if (Result != null)
+                {
+                    response.Success = true;
+                    response.Message = "Note Retrieved successfully";
+                    response.Data = Result;
+
+
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Error While retrieveing the note!";
+                }
+                return response;
+
             }
 
+
+        }
+
+        [HttpGet("NotebyId")]
+        [Authorize]
+
+        public ResponseModel<UserNotes> ViewNotesbyId( int noteId)
+        {
+            var response = new ResponseModel<UserNotes>();
+
+            var cacheResult = _cache.GetString(Convert.ToString(noteId));
+            var finalResult = JsonSerializer.Deserialize<UserNotes>(cacheResult);
+
+            if (finalResult != null)
+            {
+                response.Success = true;
+                response.Message = "Notes retrieved Successfully";
+                response.Data = finalResult;
                 return response;
+            }
+            else
+            {
+
+                string UserId = User.FindFirstValue("UserId");
+                int _userId = Convert.ToInt32(UserId);
+
+                var result = notesBL.ViewNotebyId(_userId, noteId);
+
+                if (result != null)
+                {
+                    response.Success = true;
+                    response.Message = "Notes retrieved Successfully";
+                    response.Data = result;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "No notes Found,please create a note first.";
+
+                }
+                return response;
+            }
         }
 
         [HttpPut]
@@ -116,8 +201,8 @@ namespace FundooNotesAPI.Controllers
 
             string UserId = User.FindFirstValue("UserId");  
             int _userId = Convert.ToInt32(UserId);
-
-            bool result = notesBL.DeleteNote(_userId, nodeId);
+            bool result = notesBL.DeleteNote(_userId, nodeId);      //Remove  from database
+            _cache.Remove(Convert.ToString(nodeId));                //Remove from cache 
 
             if (result)
             {

@@ -151,3 +151,10 @@ E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.AspNetCore.
 E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
 E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\secrets.json
 E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\dotenv.net.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\StackExchange.Redis.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
+E:\c# projects\Api Project\FundooNotesAPI\bin\Debug\net8.0\RabbitMQ.Client.dll
